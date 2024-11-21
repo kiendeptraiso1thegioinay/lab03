@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm Kiếm Sinh Viên</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Tìm Kiếm Sinh Viên</h2>
+        <form method="POST">
+            <label for="mssv">MSSV:</label>
+            <input type="text" id="mssv" name="mssv" required>
+            <br>
+            <button type="submit">Tìm Kiếm</button>
+        </form>
+        <a href="{{ url_for('dashboard') }}">Quay lại</a>
+        {% if student %}
+        <h3>Kết Quả:</h3>
+        <p style="color: black;">MSSV: {{ student[0] }}</p>
+        <p style="color: black;">Họ và Tên: {{ student[1] }}</p>
+        {% elif student is not none %}
+        <h3>Kết Quả:</h3>
+        <p style="color: black;">Không tìm thấy sinh viên.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

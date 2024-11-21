@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Sinh Viên</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Danh Sách Sinh Viên</h2>
+        <a href="{{ url_for('add_student') }}">Thêm Sinh Viên</a> | 
+        <a href="{{ url_for('search_student') }}">Tìm Kiếm Sinh Viên</a> | 
+        <a href="/">Đăng Xuất</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>MSSV</th>
+                    <th>Họ và tên</th>
+                    <th>Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student[0] }}</td>
+                    <td>{{ student[1] }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_student', mssv=student[0]) }}" method="POST" style="display:inline;">
+                            <button style="background-color: red;" type="submit" onclick="return confirm('Bạn có chắc chắn muốn xóa sinh viên này?')">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
