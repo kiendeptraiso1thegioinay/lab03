@@ -3,16 +3,16 @@ import psycopg2
 from psycopg2 import sql
 
 app = Flask(__name__)
-app.secret_key = '3824'  # Đảm bảo bảo mật cho các thông báo flash
+app.secret_key = '3824'  
 
 # Kết nối cơ sở dữ liệu
 def get_db_connection():
     conn = psycopg2.connect(
-        dbname='dbtest',  # Tên cơ sở dữ liệu
-        user='postgres',  # Tên người dùng
-        password='382004',  # Mật khẩu
-        host='localhost',  # Máy chủ
-        port='5432'  # Cổng
+        dbname='dbtest',  
+        user='postgres',  
+        password='382004',  
+        host='localhost',  
+        port='5432'  
     )
     return conn
 
@@ -22,10 +22,10 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if username == 'tkien3318' and password == '123':  # Đăng nhập giả định
+        if username == 'tkien3318' and password == '123': 
             return redirect(url_for('dashboard'))
         else:
-            flash('Tên người dùng hoặc mật khẩu không đúng!', 'danger')
+            flash('Tên người dùng hoặc mật khẩu không đúng!', 'danger1')
     return render_template('login.html')
 
 # Trang quản lý sinh viên
@@ -49,7 +49,7 @@ def add_student():
         cur.execute('INSERT INTO sinhvien (mssv, hoten) VALUES (%s, %s)', (mssv, hoten))
         conn.commit()
         conn.close()
-        flash('Thêm sinh viên thành công!', 'success')
+        flash('Thêm sinh viên thành công!', 'success1')
         return redirect(url_for('dashboard'))
     return render_template('add_students.html')
 
@@ -61,7 +61,7 @@ def delete_student(mssv):
     cur.execute('DELETE FROM sinhvien WHERE mssv = %s', (mssv,))
     conn.commit()
     conn.close()
-    flash('Xóa sinh viên thành công!', 'success')
+    flash('Xóa sinh viên thành công!', 'success2')
     return redirect(url_for('dashboard'))
 
 # Tìm kiếm sinh viên
@@ -76,7 +76,7 @@ def search_student():
         student = cur.fetchone()
         conn.close()
         if not student:
-            flash('Không tìm thấy sinh viên với MSSV đã nhập.', 'danger')
+            flash('Không tìm thấy sinh viên với MSSV đã nhập.', 'danger2')
     return render_template('search_students.html', student=student)
 
 if __name__ == '__main__':
